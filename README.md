@@ -1,4 +1,4 @@
-# mental_health_poc
+# Mental Health Poc
 
 Android project.
 
