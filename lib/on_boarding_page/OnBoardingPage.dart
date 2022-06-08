@@ -81,14 +81,25 @@ class OnBoardingPageState extends State<OnBoardingPage> {
       ),
     );
   }
-}
 
-buildFirstOnBoardingScreen() {
-  return Center(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Padding(
+  buildFirstOnBoardingScreen() {
+    return Center(
+      child: MediaQuery.of(context).orientation == Orientation.portrait
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: buildFirstOnBoardingContent(),
+            )
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: buildFirstOnBoardingContent(),
+            ),
+    );
+  }
+
+  buildFirstOnBoardingContent() {
+    return [
+      Expanded(
+        child: Padding(
           padding: const EdgeInsets.only(
             bottom: 30.0,
           ),
@@ -96,7 +107,10 @@ buildFirstOnBoardingScreen() {
             'assets/images/onBoarding_first_image.png',
           ),
         ),
-        const Padding(
+      ),
+      //TODO o problema é algo ae
+      const Expanded(
+        child: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: 30.0,
           ),
@@ -123,17 +137,28 @@ buildFirstOnBoardingScreen() {
             ),
           ),
         ),
-      ],
-    ),
-  );
-}
+      ),
+    ];
+  }
 
-buildSecondOnBoardingScreen() {
-  return Center(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Padding(
+  buildSecondOnBoardingScreen() {
+    return Center(
+      child: MediaQuery.of(context).orientation == Orientation.portrait
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: buildSecondOnBoardingContent(),
+            )
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: buildSecondOnBoardingContent(),
+            ),
+    );
+  }
+
+  buildSecondOnBoardingContent() {
+    return [
+      Expanded(
+        child: Padding(
           padding: const EdgeInsets.only(
             bottom: 30.0,
           ),
@@ -141,7 +166,9 @@ buildSecondOnBoardingScreen() {
             'assets/images/onBoarding_second_image.png',
           ),
         ),
-        const Padding(
+      ),
+      const Expanded(
+        child: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: 30.0,
           ),
@@ -155,7 +182,10 @@ buildSecondOnBoardingScreen() {
               ),
             ),
             subtitle: Padding(
-              padding: EdgeInsets.only(top: 10.0, bottom: 5),
+              padding: EdgeInsets.only(
+                top: 10.0,
+                bottom: 5,
+              ),
               child: Text(
                 onBoardingSecondPageSubTitle,
                 textAlign: TextAlign.center,
@@ -166,7 +196,7 @@ buildSecondOnBoardingScreen() {
             ),
           ),
         ),
-      ],
-    ),
-  );
+      ),
+    ];
+  }
 }
