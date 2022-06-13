@@ -9,6 +9,8 @@ import 'package:mental_health_poc/on_boarding_page/OnBoardingPage.dart';
 import 'package:mental_health_poc/register_screen/RegisterScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../home_screen/HomeScreen.dart';
+
 class LoginScreen extends StatefulWidget {
   @override
   LoginScreenState createState() => LoginScreenState();
@@ -90,7 +92,9 @@ class LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                    () {},
+                    () {
+                      Get.to(HomeScreen());
+                    },
                   ),
                 ),
                 Padding(
