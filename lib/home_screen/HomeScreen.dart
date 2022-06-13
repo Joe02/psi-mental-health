@@ -114,70 +114,74 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   buildHomeScreen() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        SizedBox(
-          height: MediaQuery.of(context).size.height / 10,
-        ),
-        const Align(
-          alignment: Alignment.centerLeft,
-          child: Padding(
-            padding: EdgeInsets.only(
-              left: 15.0,
+    return SingleChildScrollView(
+      child: Expanded(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 10,
             ),
-            child: Text(
-              "Seja bem vindo, João",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(
-            top: 40.0,
-          ),
-          child: Card(
-            color: homeScreenCardBackgroundColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                10.0,
-              ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(25.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(
-                      bottom: 20.0,
-                    ),
-                    child: Text(
-                      "Como você está se sentindo?",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17,
-                      ),
-                    ),
+            const Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: EdgeInsets.only(
+                  left: 15.0,
+                ),
+                child: Text(
+                  "Seja bem vindo, João",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
-                  Image.asset(
-                    'assets/images/Emojis.png',
-                  )
-                ],
+                ),
               ),
             ),
-          ),
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 40.0,
+              ),
+              child: Card(
+                color: homeScreenCardBackgroundColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                    10.0,
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(25.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(
+                          bottom: 20.0,
+                        ),
+                        child: Text(
+                          "Como você está se sentindo?",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17,
+                          ),
+                        ),
+                      ),
+                      Image.asset(
+                        'assets/images/Emojis.png',
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: Image.asset(
+                'assets/images/mood_graphics.png',
+              ),
+            )
+          ],
         ),
-        Padding(
-          padding: const EdgeInsets.only(top: 20.0),
-          child: Image.asset(
-            'assets/images/mood_graphics.png',
-          ),
-        )
-      ],
+      ),
     );
   }
 
@@ -189,7 +193,7 @@ class HomeScreenState extends State<HomeScreen> {
         ),
         Expanded(
           child: GridView.count(
-            crossAxisCount: 2,
+            crossAxisCount: MediaQuery.of(context).orientation == Orientation.portrait ? 2 : 3,
             children: List.generate(
               3,
               (index) {
