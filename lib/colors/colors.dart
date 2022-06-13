@@ -12,3 +12,6 @@ const Color defaultTextFormFieldBorderColor =
     Color.fromRGBO(184, 184, 183, 1.0);
 const Color defaultTextFormFieldTextColor = Color.fromRGBO(155, 155, 155, 1.0);
 const Color loginBackgroundColor = Color.fromRGBO(241, 241, 241, 1.0);
+
+// Home Colors
+const Color homeScreenCardBackgroundColor = Color.fromRGBO(211, 224, 234, 1.0);
