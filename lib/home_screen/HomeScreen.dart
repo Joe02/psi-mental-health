@@ -117,15 +117,45 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   buildHomeScreen() {
-    return SingleChildScrollView(
-      child: Expanded(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height / 10,
+    return MediaQuery.of(context).orientation == Orientation.portrait
+        ? Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: buildHomeContent(true),
+          )
+        : Row(
+            children: buildHomeContent(false),
+          );
+  }
+
+  buildHomeContent(bool portrait) {
+    return [
+      SizedBox(
+        height: MediaQuery.of(context).size.height / 10,
+      ),
+      Visibility(
+        visible: portrait,
+        child: const Align(
+          alignment: Alignment.centerLeft,
+          child: Padding(
+            padding: EdgeInsets.only(
+              left: 15.0,
             ),
-            const Align(
+            child: Text(
+              "Seja bem vindo, João",
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+      ),
+      Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Visibility(
+            visible: portrait == false,
+            child: const Align(
               alignment: Alignment.centerLeft,
               child: Padding(
                 padding: EdgeInsets.only(
@@ -140,10 +170,13 @@ class HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 40.0,
-              ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 40.0,
+            ),
+            child: Container(
+              height: 150,
               child: Card(
                 color: homeScreenCardBackgroundColor,
                 shape: RoundedRectangleBorder(
@@ -176,16 +209,19 @@ class HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0),
-              child: Image.asset(
-                'assets/images/mood_graphics.png',
-              ),
-            )
-          ],
-        ),
+          ),
+        ],
       ),
-    );
+      Container(
+        height: 300,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 20.0),
+          child: Image.asset(
+            'assets/images/mood_graphics.png',
+          ),
+        ),
+      )
+    ];
   }
 
   buildCommunicationScreen() {
