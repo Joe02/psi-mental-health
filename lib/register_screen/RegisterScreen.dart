@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:mental_health_poc/colors/colors.dart';
 import 'package:mental_health_poc/components/DefaultButton.dart';
 import 'package:mental_health_poc/components/FormField.dart';
+import 'package:mental_health_poc/login_screen/LoginScreen.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -79,7 +80,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ),
                     () {
-                      //TODO "Criar conta"
+                      Get.to(LoginScreen());
                     },
                   ),
                 ),
@@ -89,8 +90,8 @@ class RegisterScreenState extends State<RegisterScreen> {
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Padding(
+                    children: [
+                      const Padding(
                         padding: EdgeInsets.all(
                           4.0,
                         ),
@@ -101,15 +102,20 @@ class RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.all(
-                          4.0,
-                        ),
-                        child: Text(
-                          "Fazer login",
-                          style: TextStyle(
-                            color: Colors.blueAccent,
-                            fontSize: 18,
+                      InkResponse(
+                        onTap: () {
+                          Get.to(LoginScreen());
+                        },
+                        child: const Padding(
+                          padding: EdgeInsets.all(
+                            4.0,
+                          ),
+                          child: Text(
+                            "Fazer login",
+                            style: TextStyle(
+                              color: Colors.blueAccent,
+                              fontSize: 18,
+                            ),
                           ),
                         ),
                       ),
