@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../colors/colors.dart';
+import 'package:get/get.dart';
+import 'package:mental_health_poc/chat_list_screen/ChatListScreen.dart';
+import 'package:mental_health_poc/colors/colors.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -193,31 +194,41 @@ class HomeScreenState extends State<HomeScreen> {
         ),
         Expanded(
           child: GridView.count(
-            crossAxisCount: MediaQuery.of(context).orientation == Orientation.portrait ? 2 : 3,
+            crossAxisCount:
+                MediaQuery.of(context).orientation == Orientation.portrait
+                    ? 2
+                    : 3,
             children: List.generate(
               3,
               (index) {
-                return Center(
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                    color: loginBackgroundColor,
-                    elevation: 5,
-                    child: Container(
-                      height: 170,
-                      width: 170,
-                      child: Center(
-                        child: ListTile(
-                          title: itemsList[index].itemIcon,
-                          subtitle: Padding(
-                            padding: const EdgeInsets.only(top: 10.0),
-                            child: Text(
-                              itemsList[index].itemLabel,
-                              style: const TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.w500,
+                return InkResponse(
+                  onTap: () {
+                    Get.to(
+                      ChatListScreen(),
+                    );
+                  },
+                  child: Center(
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                      color: loginBackgroundColor,
+                      elevation: 5,
+                      child: Container(
+                        height: 170,
+                        width: 170,
+                        child: Center(
+                          child: ListTile(
+                            title: itemsList[index].itemIcon,
+                            subtitle: Padding(
+                              padding: const EdgeInsets.only(top: 10.0),
+                              child: Text(
+                                itemsList[index].itemLabel,
+                                style: const TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                textAlign: TextAlign.center,
                               ),
-                              textAlign: TextAlign.center,
                             ),
                           ),
                         ),
@@ -234,64 +245,76 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   buildProfileScreen() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Card(
-          color: defaultButtonColor,
-          child: const Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 35.0,
-              vertical: 25.0,
+    return CustomScrollView(
+      slivers: [
+        SliverFillRemaining(
+          hasScrollBody: false,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Card(
+            color: defaultButtonColor,
+            child: const Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 35.0,
+                vertical: 25.0,
+              ),
+              child: Text(
+                "J",
+                style: TextStyle(
+                  fontSize: 50,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ),
-            child: Text(
-              "J",
-              style: TextStyle(
-                fontSize: 50,
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5.0),
+            ),
+          ),
+          const Flexible(
+            child: ListTile(
+              title: Text(
+                "João Silva",
+                textAlign: TextAlign.center,
+              ),
+              subtitle: Text(
+                "Joaosilva@gmail.com",
+                textAlign: TextAlign.center,
               ),
             ),
           ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5.0),
+          SizedBox(
+            height: 50,
           ),
-        ),
-        const Flexible(
-          child: ListTile(
-            title: Text(
-              "João Silva",
-              textAlign: TextAlign.center,
-            ),
-            subtitle: Text(
-              "Joaosilva@gmail.com",
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ),
-        SizedBox(
-          height: 50,
-        ),
-        buildProfileListItem(
-            "Dados do profissional",
-            const Icon(
-              Icons.person,
-              color: defaultButtonColor,
-            )),
-        buildProfileListItem(
-            "Agendamentos",
-            const Icon(
-              Icons.calendar_today_outlined,
-              color: defaultButtonColor,
-            )),
-        buildProfileListItem(
-            "Trocar senha",
-            const Icon(
-              Icons.lock,
-              color: defaultButtonColor,
-            )),
-      ],
+          buildProfileListItem(
+              "Dados do profissional",
+              const Icon(
+                Icons.person,
+                color: defaultButtonColor,
+              )),
+          buildProfileListItem(
+              "Agendamentos",
+              const Icon(
+                Icons.calendar_today_outlined,
+                color: defaultButtonColor,
+              )),
+          buildProfileListItem(
+              "Trocar senha",
+              const Icon(
+                Icons.lock,
+                color: defaultButtonColor,
+              )),
+          buildProfileListItem(
+              "Sair",
+              const Icon(
+                Icons.exit_to_app,
+                color: Colors.red,
+              )),
+        ],
+      ),
+    )]
     );
   }
 
@@ -310,7 +333,13 @@ class HomeScreenState extends State<HomeScreen> {
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             const Spacer(),
-            const Icon(Icons.arrow_forward_ios_rounded)
+            Visibility(
+              visible: label != "Sair",
+              child: Icon(
+                Icons.arrow_forward_ios_rounded,
+                color: Colors.black,
+              ),
+            )
           ],
         ),
       ),

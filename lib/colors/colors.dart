@@ -15,3 +15,6 @@ const Color loginBackgroundColor = Color.fromRGBO(241, 241, 241, 1.0);
 
 // Home Colors
 const Color homeScreenCardBackgroundColor = Color.fromRGBO(211, 224, 234, 1.0);
+
+// Chat
+const Color chatListBackgroundColor = Color.fromRGBO(234, 235, 238, 1.0);
