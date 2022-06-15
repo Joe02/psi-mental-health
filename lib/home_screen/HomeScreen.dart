@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mental_health_poc/appointment_screen/AppointmentScreen.dart';
 import 'package:mental_health_poc/chat_list_screen/ChatListScreen.dart';
 import 'package:mental_health_poc/colors/colors.dart';
+import 'package:mental_health_poc/schedules_screen/SchedulesScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -203,9 +205,19 @@ class HomeScreenState extends State<HomeScreen> {
               (index) {
                 return InkResponse(
                   onTap: () {
-                    Get.to(
-                      ChatListScreen(),
-                    );
+                    if (index == 0) {
+                      Get.to(
+                        ChatListScreen(),
+                      );
+                    } else if (index == 1) {
+                      Get.to(
+                        AppointmentScreen(),
+                      );
+                    } else {
+                      Get.to(
+                        SchedulesScreen(),
+                      );
+                    }
                   },
                   child: Center(
                     child: Card(
@@ -245,76 +257,124 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   buildProfileScreen() {
-    return CustomScrollView(
-      slivers: [
-        SliverFillRemaining(
-          hasScrollBody: false,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Card(
-            color: defaultButtonColor,
-            child: const Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 35.0,
-                vertical: 25.0,
+    return CustomScrollView(slivers: [
+      SliverFillRemaining(
+        hasScrollBody: false,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Card(
+              color: defaultButtonColor,
+              child: const Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 35.0,
+                  vertical: 25.0,
+                ),
+                child: Text(
+                  "J",
+                  style: TextStyle(
+                    fontSize: 50,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ),
-              child: Text(
-                "J",
-                style: TextStyle(
-                  fontSize: 50,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5.0),
+              ),
+            ),
+            const Flexible(
+              child: ListTile(
+                title: Text(
+                  "João Silva",
+                  textAlign: TextAlign.center,
+                ),
+                subtitle: Text(
+                  "Joaosilva@gmail.com",
+                  textAlign: TextAlign.center,
                 ),
               ),
             ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5.0),
+            const SizedBox(
+              height: 50,
             ),
-          ),
-          const Flexible(
-            child: ListTile(
-              title: Text(
-                "João Silva",
-                textAlign: TextAlign.center,
-              ),
-              subtitle: Text(
-                "Joaosilva@gmail.com",
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 50,
-          ),
-          buildProfileListItem(
-              "Dados do profissional",
-              const Icon(
-                Icons.person,
-                color: defaultButtonColor,
-              )),
-          buildProfileListItem(
-              "Agendamentos",
-              const Icon(
-                Icons.calendar_today_outlined,
-                color: defaultButtonColor,
-              )),
-          buildProfileListItem(
-              "Trocar senha",
-              const Icon(
-                Icons.lock,
-                color: defaultButtonColor,
-              )),
-          buildProfileListItem(
-              "Sair",
-              const Icon(
-                Icons.exit_to_app,
-                color: Colors.red,
-              )),
-        ],
+            buildProfileListItem(
+                "Dados do profissional",
+                const Icon(
+                  Icons.person,
+                  color: defaultButtonColor,
+                )),
+            buildProfileListItem(
+                "Agendamentos",
+                InkResponse(
+                  onTap: () {
+                    Get.to(SchedulesScreen());
+                  },
+                  child: const Icon(
+                    Icons.calendar_today_outlined,
+                    color: defaultButtonColor,
+                  ),
+                )),
+            buildProfileListItem(
+                "Trocar senha",
+                InkResponse(
+                  onTap: () {
+                    showChangePasswordDialog(context);
+                  },
+                  child: const Icon(
+                    Icons.lock,
+                    color: defaultButtonColor,
+                  ),
+                )),
+            buildProfileListItem(
+                "Sair",
+                InkResponse(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: const Icon(
+                    Icons.exit_to_app,
+                    color: Colors.red,
+                  ),
+                )),
+          ],
+        ),
+      )
+    ]);
+  }
+
+  showChangePasswordDialog(BuildContext context) {
+    Widget cancelButton = FlatButton(
+      child: const Text("Cancelar"),
+      onPressed: () {
+        Get.back();
+      },
+    );
+
+    Widget continueButton = FlatButton(
+      child: const Text("Trocar"),
+      onPressed: () {
+        Get.back();
+      },
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: const Text("Mudar senha"),
+      content: const TextField(
+        decoration: InputDecoration(hintText: "Nova senha"),
       ),
-    )]
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 
@@ -335,7 +395,7 @@ class HomeScreenState extends State<HomeScreen> {
             const Spacer(),
             Visibility(
               visible: label != "Sair",
-              child: Icon(
+              child: const Icon(
                 Icons.arrow_forward_ios_rounded,
                 color: Colors.black,
               ),
